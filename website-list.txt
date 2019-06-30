@@ -1,1 +1,5 @@
-http://udacity.com
+http://sdcs.sysu.edu.cn/research/activity
+http://sdcs.sysu.edu.cn/bk/jw
+http://sdcs.sysu.edu.cn/student/notice
+http://jwb.sysu.edu.cn/notice
+http://jwb.sysu.edu.cn/announcement

@@ -3,7 +3,6 @@
 
 # Third Party Modules
 from BeautifulSoup import BeautifulSoup
-
 # Standard Modules
 import urllib2
 import sys
@@ -41,8 +40,20 @@ def handle_SIGINT(signal, frame) :
     error("Ctrl + C, Detected!\nExiting Now!", 3)
 
 def print_result():
+    noDiff='---\s+++\s@@ -2,19 +2,20 @@*'
     for changes in web_diff:
-        sys.stderr.write('\n' + changes + web_diff[changes])
+        tempStr=web_diff[changes]
+        # tempStr=tempStr.replace("*","")
+        # tempStr = tempStr.replace(".", "")
+        # tempStr = tempStr.replace("?", "")
+        # tempStr = tempStr.replace("(", "")
+        # tempStr = tempStr.replace(")", "")
+        isDiff=re.match(noDiff, tempStr)
+        if isDiff is not 'none':
+            print(isDiff)
+        else:
+            sys.stderr.write('\n' + changes + "no changes.")
+        # sys.stderr.write('\n' + changes + web_diff[changes])
 def save_all():
     for i in pages:
             c.execute("SELECT * from cache where url=\'%s\'" % (i,))
@@ -116,6 +127,7 @@ for website in web_list:
             if diff == '': # no difference == No point of creating another cache file
                 continue
             web_diff[current_url] = '\n' + diff
+            tp.close()
             os.remove(pages[current_url])
         else: # new page added
             web_diff[current_url] = ' -- New Page Added\n'
